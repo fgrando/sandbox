@@ -5,10 +5,12 @@ SOURCENAME=toolsAndTips.tex
 #	pdflatex -shell-escape $(SOURCENAME)
 
 all: all-debug
-	rm *.out *.nav *.log *.snm *.toc *.aux 
+	rm *.out *.nav *.log *.snm *.toc *.aux
 
 all-debug: all
 	pdflatex -shell-escape $(SOURCENAME)
+	pdflatex -shell-escape $(SOURCENAME)
+# must compile 2 times to create the agenda...
 
 %.pdf: %.svg
 	inkscape -D -A $@ $<

@@ -15,7 +15,7 @@
 \subtitle{Notes worth remembering}
 \author{Fernando}
 %%\email{}
-\institute{\href{https://github.com/fgrando}{\emph{my github}}}
+\institute{\href{https://github.com/fgrando}{\emph{github}}}
 \date{\today} 
 
 \begin{document}
@@ -25,7 +25,11 @@
     \titlepage
 \end{frame}
 
+\begin{frame}{Topics}
+  \tableofcontents
+\end{frame}
 
+\section{Motivation}
 \begin{frame}{Motivation}
     I create this file to keep track of interesting tools and some tips learned
     along the way.\\
@@ -33,26 +37,24 @@
 \end{frame}
 
 
+\section{silversearcher-ag}
 \begin{frame}
   \frametitle{silversearcher-ag}
   \code{ag} is like grep or ack. Very useful for searching terms in documentation and code.
-  
   Installation:
   \begin{itemize}
     \item Linux: \mono{apt install silversearcher-ag}
     \item Windows: \url{https://blog.kowalczyk.info/software/the-silver-searcher-for-windows.html}
   \end{itemize}
-  
   \begin{figure}
     \includegraphics[scale=0.4]{data/ag-terminal-linuxpng.png}
     %\caption{console execution}
   \end{figure}
   %Windows port: \href{https://blog.kowalczyk.info/software/the-silver-searcher-for-windows.html}{\beamergotobutton{Link}}
-  
-
 \end{frame}
 
 
+\section{PDF to Text}
 \begin{frame}
   \frametitle{PDF to Text}
   Extract text from PDF files.
@@ -60,24 +62,52 @@
 \end{frame}
 
 
+\section{From SVN to GIT}
 \begin{frame}
   \frametitle{From SVN to GIT}
   Useful commands:
   \begin{itemize}
-    \item \mono{svn commit -m "first commit"}
-      \begin{itemize}
-      \item \mono{git commit -m "first commit"}
-      \end{itemize}
+    \item \mono{[svn|git] commit -m "first commit"}
+    \item \mono{[svn|git] diff <file>}
     
     \item \mono{svn revert <file>}
       \begin{itemize}
       \item \mono{git checkout <file>}
       \end{itemize}
-    \end{itemize}
+  \end{itemize}
+\end{frame}
 
+
+\section{Assign version numbers to sw}
+\begin{frame}
+  \frametitle{How to assign version numbers to my sw?}
+  Use semver: \url{https://semver.org/}\\
+  Given a version number \mono{MAJOR.MINOR.PATCH}, increment the:
+  \begin{itemize}
+    \item \mono{MAJOR} version when you make incompatible API changes,
+    \item \mono{MINOR} version when you add functionality in a backwards compatible manner, and
+    \item \mono{PATCH} version when you make backwards compatible bug fixes.
+  \end{itemize}
 \end{frame}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+  \frametitle{End}
+  The end.
+\end{frame}
 
 \end{document}
