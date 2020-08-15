@@ -1,0 +1,71 @@
+version: '3'
+volumes:
+    dados:
+networks:
+    banco:
+    web:
+    fila:
+services:
+    db:
+        image: postgres:9.6
+        volumes:
+            # volume chamado dados (criado acima)
+            - dados:/var/lib/postgresql/data
+            # script
+            - ./scripts:/scripts
+            - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+        networks:
+            - banco
+        environment:
+            # The parameter below was necessary to fix this error:
+                # Database is uninitialized and superuser password is not specified.
+                # You must specify POSTGRES_PASSWORD to a non-empty value for the
+                # superuser. For example, "-e POSTGRES_PASSWORD=password" on "docker run".
+            POSTGRES_HOST_AUTH_METHOD: "trust" 
+    frontend: 
+        image: nginx:1.13
+        volumes:
+            # site
+            - ./web:/usr/share/nginx/html/
+            # config do proxy reverso
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - 80:80
+        networks:
+            - web
+        depends_on:
+            - app # (camada app); serve para orchestrar o start dos servicos; ou docker-compose-app vai startar as dependencias tambem
+    app:
+        image: python:3.6
+        volumes:
+            - ./app:/app
+        working_dir: /app #este app eh dentro do container
+        command: bash ./app.sh #o bash ali eh necessario porque nao app.sh nao tem permissao de execucao (chmod). 
+        networks:
+            - banco
+            - web
+            - fila
+        depends_on:
+            - db
+            - queue
+        environment: 
+            - DB_NAME=email_sender_ERRRROOOO
+    queue:
+        image: redis:3.2
+        networks:
+            - fila
+    worker:
+        build: worker
+        volumes:
+            - ./worker:/worker
+        working_dir: /worker
+        command: worker.py
+        networks:
+            - fila
+        depends_on: 
+            - queue
+
+
+
+
+

@@ -1,0 +1,39 @@
+
+aspas igual do pyhon ' ou ". 
+Mas aceita crases também ` ` para template strings que resolve variaveis:
+    console.log(`${nome} pesa ${weight} kg`)
+
+usa o ; ou não
+
+para printar usar:
+console.log()
+mas pode mandar o dado direto, nao precisa  converter para string
+
+comentario igual o C
+// /**/
+
+
+cria variáveis com 
+let nome
+ou 
+var nome (forma antiga)
+var permite redeclarar variavel, let nao deixa
+
+ECMAScript 2015 (ES6) foi a padronizacao que inseriu o let
+ECMA International era a empresa que definiu esse padrao
+
+variavel criada sem const ou let vira uma variavel global!!! Nao usar
+
+variavel inicializada por padrao como 'undefined'
+
+const precisa ser inicializada
+
+typeof() é usado para saber o tipo
+
+'+' soma ou concatena dependendo to tipo
+
+conversoes:
+console.log("3" - 123); tenta converter e se conseguir faz a matematica
+number = parseInt("13lixooo!") resulta em 13
+
+
