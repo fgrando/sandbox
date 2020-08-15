@@ -8,6 +8,19 @@
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
 \newcommand{\mono}[1]{\texttt{#1}}
 
+\usepackage{verbatimbox}
+
+\usepackage{color}
+\definecolor{lstgrey}{rgb}{0.95,0.95,0.95}
+\usepackage{listings}
+\lstset{language=C,
+       backgroundcolor=\color{lstgrey},
+       frame=single,
+       basicstyle=\footnotesize\ttfamily,
+       captionpos=b,
+       tabsize=2,
+}
+
 
 \mode<presentation>{}
 %% preamble
@@ -92,6 +105,42 @@
 \end{frame}
 
 
+
+\section{Message Sequence Chart (\mono{mscgen})}
+\begin{frame}[fragile] % fragile is required by verbatim
+  \frametitle{Message Sequence Chart (\mono{mscgen})}
+  Full featured message chart generator (like graphviz): \url{http://www.mcternan.me.uk/mscgen/}\\
+  
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \begin{center}
+      \begin{lstlisting}
+# Fictional client-server protocol
+msc {
+ arcgradient = 8;
+
+ a [label="Client"],b [label="Server"];
+
+ a=>b [label="data1"];
+ a-xb [label="data2"];
+ a=>b [label="data3"];
+ a<=b [label="ack1, nack2"];
+ a=>b [label="data2", arcskip="1"];
+ |||;
+ a<=b [label="ack3"];
+ |||;
+}
+      \end{lstlisting}
+    \end{center}
+    \end{column}
+    
+    \begin{column}{0.4\textwidth}  %%<--- here
+        \begin{center}
+          \includegraphics[scale=0.4]{data/mcsgen-example.png}
+        \end{center}
+    \end{column}
+    \end{columns}
+\end{frame}
 
 
 
