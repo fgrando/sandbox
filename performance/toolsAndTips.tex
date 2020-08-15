@@ -68,12 +68,32 @@
 \end{frame}
 
 
-\section{PDF to Text}
+\section{pdftotext}
 \begin{frame}
-  \frametitle{PDF to Text}
-  Extract text from PDF files.
-  TODO
+  \frametitle{pdftotext}
+  Extract text from PDF files.\\
+  There is also other outputs (\mono{pdftohtml, etc...})\\
+  Linux: \mono{apt install poppler-utils}\\
+  Windows: \url{https://www.xpdfreader.com/download.html}
 \end{frame}
+
+
+\subsection{convertPdfToTxt.bat}
+\begin{frame}[fragile] % fragile is required by verbatim
+  \frametitle{\mono{convertPdfToTxt.bat}}
+  Script to convert all PDF files in the directory to TXT.
+    \begin{lstlisting}
+@echo off
+for /r %%i in (*.pdf) do (
+  echo %%i
+  pdftotext "%%i" "%%i.txt"
+)
+    \end{lstlisting}
+\end{frame}
+
+
+
+
 
 
 \section{From SVN to GIT}

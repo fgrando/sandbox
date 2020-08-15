@@ -5,7 +5,7 @@ SOURCENAME=toolsAndTips.tex
 #	pdflatex -shell-escape $(SOURCENAME)
 
 all: all-debug
-	rm *.out *.nav *.log *.snm *.toc *.aux
+	rm *.out *.nav *.log *.snm *.toc *.aux *.vrb
 
 all-debug: all
 	pdflatex -shell-escape $(SOURCENAME)
