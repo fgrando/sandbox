@@ -1,0 +1,78 @@
+%%\documentclass{beamer} 
+%%\usetheme{Madrid} 
+
+\documentclass[pdf]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{bookman}
+\usetheme{Madrid}
+%%\usecolortheme{beaver}
+
+
+
+\mode<presentation>{}
+%% preamble
+\title{The title}
+\subtitle{The subtitle}
+\author{your name}
+\institute{myself}
+%%\email{fernando@gmail.com}
+
+\begin{document}
+
+%% title frame
+\begin{frame}
+    \titlepage
+    \end{frame}
+    %% normal frame
+    \begin{frame}{Frame title}
+    The body of the frame.
+\end{frame}
+
+\begin{frame}
+%%    \frametitle{Table of Contents}
+    \frametitle{Outline}
+    \tableofcontents
+\end{frame}
+
+
+\begin{frame}{Items}
+    \begin{itemize}
+    \item Something
+      \begin{itemize}
+      \item Subitems.
+        other line
+      \item Also this
+        Is a sentence.
+      \item \url{https://google.com.br}
+      \end{itemize}
+    \item Carry on...
+    \end{itemize}
+  \end{frame}
+
+
+
+
+\begin{frame}
+    \frametitle{Sample frame title}
+    This is a text in second frame. 
+    For the sake of showing an example.
+    
+    \begin{itemize}
+     \item<1-> Text visible on slide 1
+     \item<2-> Text visible on slide 2
+     \item<3> Text visible on slide 3
+     \item<4-> Text visible on slide 4
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{paused slides}
+ In this slide \pause
+
+ the text will be partially visible \pause
+
+ And finally everything will be there
+\end{frame}
+
+
+\end{document}
