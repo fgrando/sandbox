@@ -53,20 +53,17 @@ class FileMonitor(threading.Thread):
 
 
 
-def run(folder):
+
+if __name__ == "__main__":
+    signal.signal(signal.SIGINT, handler)
+    folder = os.path.abspath(sys.argv[1])
+    print(f"monitoring folder {folder}")
+
     KEEP_ALIVE.acquire()
     wait_seconds = 3
-    mon = FileMonitor(os.path.abspath(folder), KEEP_ALIVE, process, wait_seconds)
+    mon = FileMonitor(folder, KEEP_ALIVE, process, wait_seconds)
     mon.start()
     mon.join()
 
     print("bye!")
-    return 0
-
-
-if __name__ == "__main__":
-    signal.signal(signal.SIGINT, handler)
-
-    folder = sys.argv[1]
-    print(f"monitoring folder {folder}")
-    exit(run(folder))
+    exit(0)
