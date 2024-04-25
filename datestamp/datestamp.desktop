@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Datestamp
+Type=Application
+Exec=/home/fgrando/opt/wdir/sandbox/datestamp/datestamp.py
+TryExec=/home/fgrando/opt/wdir/sandbox/datestamp/datestamp.py
+Terminal=false
+StartupNotify=true
