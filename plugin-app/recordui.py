@@ -15,29 +15,29 @@ class RecordUI(QWidget):
         layVer = QVBoxLayout()
         self.setLayout(layVer)
 
+        layVer.addWidget(QLabel('tbd'))
 
-        grid = QGridLayout()
+        hdoc = QHBoxLayout()
+        hdoc.addWidget(QLabel("doc:"))
+        hdoc.addWidget(QLineEdit("12341324"))
+        hdoc.addWidget(QLabel("baseline:"))
+        hdoc.addWidget(QLineEdit("BL_12341234"))
+        layVer.addLayout(hdoc)
 
-        self.group_view = QGroupBox("View")
-        group_layout = QVBoxLayout()
 
-        group_layout.addWidget(QLabel("doc:"))
-        group_layout.addWidget(QLineEdit("12341324"))
-        group_layout.addWidget(QLabel("baseline:"))
-        group_layout.addWidget(QLineEdit("BL_12341234"))
-
+        hbtn = QHBoxLayout()
         btn_load = QPushButton("Load settings")
         btn_load.clicked.connect(self.on_load_view)
-        group_layout.addWidget(btn_load)
-
-        self.list_display_cols = QListWidget()
-        self.list_display_cols.itemChanged.connect(self.on_view_item_changed)
-        group_layout.addWidget(self.list_display_cols)
-
         btn_save = QPushButton("Save view")
         btn_save.clicked.connect(self.on_save_view)
-        group_layout.addWidget(btn_save)
 
+        hbtn.addWidget(btn_load)
+        hbtn.addWidget(btn_save)
+        layVer.addLayout(hbtn)
+
+        self.list_display_cols = QListWidget()
+        self.list_display_cols.setMaximumHeight(100)
+        self.list_display_cols.itemChanged.connect(self.on_view_item_changed)
         self.list_display_cols.setDragDropMode(QAbstractItemView.InternalMove)
         self.list_display_cols.model().rowsMoved.connect(self.on_seq_change)
 
@@ -47,30 +47,29 @@ class RecordUI(QWidget):
             item.setCheckState(QtCore.Qt.Checked)
             self.list_display_cols.addItem(item)
 
-        self.group_view.setLayout(group_layout)
-
-        self.group_filters = QGroupBox("filters")
-        group_layout = QVBoxLayout()
-        group_layout.addWidget(QLineEdit("search"))
-        group_layout.addWidget(QLineEdit("include"))
-        group_layout.addWidget(QLineEdit("exclude"))
-        group_layout.addWidget(QListWidget())
-        self.group_filters.setLayout(group_layout)
+        self.line_search = QLineEdit()
+        self.line_search.setPlaceholderText("filter...")
+        self.line_search.textEdited.connect(self.on_search_text)
 
         self.table_contents = QTableWidget()
         self.table_contents.setRowCount(len(self.data.contents()))
         self.table_contents.setColumnCount(len(self.data.headers()))
         self.populate_table()
 
+        hbox = QHBoxLayout()
+        hbox.addWidget(self.list_display_cols)
+        hbox.addWidget(self.line_search)
+        layVer.addLayout(hbox)
 
-        grid.addWidget(self.group_view, 2,0)
-        grid.addWidget(self.group_filters, 2,1)
-        grid.addWidget(self.table_contents, 3, 0, 3, 2)
-        layVer.addLayout(grid)
+        layVer.addWidget(self.table_contents)
+
+
+
+
 
     def on_seq_change(self, *args):
         new_order = []
-        for i in range(len(self.list_display_cols.count())):
+        for i in range(self.list_display_cols.count()):
             text = self.list_display_cols.item(i).text()
             new_order.append(text)
         self.data.set_headers(new_order)
@@ -148,16 +147,21 @@ class RecordUI(QWidget):
         else:
             self.table_contents.hideColumn(col)
 
-    def add_view_ui(self):
-        grid = QGridLayout()
-        grid.addWidget(QLineEdit("view"), 0, 0)
-        groupbox = QGroupBox("View panel")
-        groupbox.setLayout(grid)
-        return groupbox
+    def on_search_text(self, text):
+        for i in range(len(self.data.contents())):
+            self.table_contents.showRow(i)
 
-    def add_search_ui(self):
-        grid = QGridLayout()
-        grid.addWidget(QLineEdit("search"), 0, 0)
-        groupbox = QGroupBox("Filter panel")
-        groupbox.setLayout(grid)
-        return groupbox
+        for i in range(self.table_contents.rowCount()):
+            hide = True
+            for j in range(self.table_contents.columnCount()):
+                item = self.table_contents.item(i, j)
+                print('check', i, j, item.text().lower())
+                if text.lower() in item.text().lower():
+                    hide = False
+                    break
+            if hide:
+                self.table_contents.hideRow(i)
+            else:
+                self.table_contents.showRow(i)
+
+

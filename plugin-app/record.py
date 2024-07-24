@@ -7,6 +7,7 @@ class Record:
         self.load('dummy')
 
     def load(self, filepath):
+        self.filepath = filepath
         data = {
             '1000': {'text':'text123', 'id': '1000', 'parents': '' },
             '1001': {'text':'lalalaasdf', 'id': '1001', 'parents': '' },
@@ -20,6 +21,9 @@ class Record:
             self._contents.append(data[k])
 
         self._headers = list(self._contents[0].keys())
+
+    def path(self):
+        return self.path
 
     def contents(self):
         return self._contents
